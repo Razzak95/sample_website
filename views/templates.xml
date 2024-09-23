@@ -1,0 +1,150 @@
+<odoo>
+
+    <template id="layout">
+        <html>
+            <head>
+                <!--<link rel="stylesheet" href="/sample_website/static/css/layout.css"/>-->
+                <t t-raw="header"/>
+            </head>
+            <body>
+                <div>Headers</div>
+
+                <t t-raw="0"/>
+
+                <div>Footer</div>
+                <t t-raw="footer"/>
+            </body>
+        </html>
+    </template>
+
+    <template id="page1">
+
+        <t t-call="sample_website.layout">
+
+            <t t-set="header">
+                <title>Page 1 Title</title>
+            </t>
+
+            <h1>Page 1</h1>
+
+            <t t-set="header">
+
+            </t>
+
+        </t>
+
+    </template>
+
+    <template id="page2">
+
+        <t t-call="sample_website.layout">
+
+            <t t-set="header">
+                <title>Page 2 Title</title>
+            </t>
+
+            <h1>Page 2</h1>
+
+            <t t-set="header">
+
+            </t>
+
+        </t>
+
+    </template>
+
+
+    <template id="create">
+        <html>
+            <head>
+                <title>Page Title</title>
+            </head>
+            <body>
+
+                <h1>Create Product</h1>
+
+                <form action="/crud/create/process" method="post" enctype="multipart/form-data">
+
+                    <div>Name</div>
+                    <input type="text" name="name"/> <br/> <br/>
+
+                    <div>list_price</div>
+                    <input type="text" name="list_price"/> <br/> <br/>
+
+                    <div>Image</div>
+                    <input type="file" name="image_1920"/> <br/> <br/>
+
+                    <button type="submit">Submit</button>
+                </form>
+
+            </body>
+        </html>
+    </template>
+
+    <template id="read_all">
+        <html>
+            <head>
+                <title>Page Title</title>
+                <link rel="stylesheet" href="/sample_website/static/css/style.css"/>
+            </head>
+            <body>
+
+                <h1>Read all Product</h1>
+
+                <t t-foreach="products" t-as="product">
+
+                    <a t-att-href="'/crud/read?product_id=%d' % product.id">
+                        <div>Name:</div>
+                        <div t-esc="product.name"></div> <br/>
+                    </a>
+
+                </t>
+
+            </body>
+        </html>
+    </template>
+
+    <template id="read">
+        <html>
+            <head>
+                <title>Page Title</title>
+            </head>
+            <body>
+
+                <h1>Read all Product</h1>
+                <div>Name:</div>
+                <div t-esc="product.name"></div> <br/>
+
+                <div>Price:</div>
+                <div t-esc="product.list_price"></div> <br/>
+
+                <a t-att-href="'/crud/update?product_id=%d' % product.id">Edit Product</a>
+
+            </body>
+        </html>
+    </template>
+
+    <template id="update">
+        <html>
+            <head>
+                <title>Page Title</title>
+            </head>
+            <body>
+
+                <form t-att-action="'/crud/update/process?product_id=%d' % product.id" method="post">
+
+                    <h1>update</h1>
+
+                    <div>Name:</div>
+                    <input type="text" name="name" t-att-value="product.name"/> <br/> <br/>
+
+                    <button type="submit">submit</button>
+
+                </form>
+
+            </body>
+        </html>
+    </template>
+
+
+</odoo>
